@@ -1,5 +1,5 @@
 class TodolistsController < ApplicationController
-  
+
   def new
     # View へ渡すためのインスタンス変数に空のモデルオブジェクトを生成する。
     @list = List.new
@@ -10,9 +10,18 @@ class TodolistsController < ApplicationController
     list = List.new(list_params)
     #DBへ保存
     list.save
-    #トップ画面へリダイレクト
-    redirect_to '/top'
+    #詳細画面へリダイレクト
+    redirect_to todolist_path(list.id)
   end
+
+  def index
+    @lists = List.all
+  end
+
+  def show
+    @list = List.find(params[:id])
+  end
+
   private
 
   def list_params
